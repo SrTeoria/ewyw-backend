@@ -9,11 +9,11 @@ module.exports = {
     try {
       const { email, password, name, userType } = req.body
       const user = await User.create({email, password})
-      if ( userType === 'restaurante' ){
+      if ( userType === 'restaurant' ){
         const restaurant = await Restaurant.create({ name, user: user._id })
         user.restaurandId = restaurant._id
         await user.save({ validateBeforeSave: false })
-      } else if ( userType === 'cliente'){
+      } else if ( userType === 'client'){
         const client = await Client.create({ name, user: user._id})
         user.clientId = client._id
         await user.save({ validateBeforeSave: false })
@@ -25,12 +25,12 @@ module.exports = {
         {
           userId: user._id,
           userTypeId: user.restaurantId ? user.restaurantId : user.clientId,
-          userType: user.restaurantId ? 'restaurante' : 'cliente'
+          userType: user.restaurantId ? 'restaurant' : 'client'
         },
         process.env.SECRET,
         { expiresIn: 60*60 }
       )
-      const userKind = user.restaurandId ? 'restaurante' : 'cliente'
+      const userKind = user.restaurandId ? 'restaurant' : 'client'
       res.status(201).json({token, userKind})
     } catch(error){
       res.status(400).json({error:error.message})
@@ -56,13 +56,13 @@ module.exports = {
         {
           userId: user._id,
           userTypeId: user.restaurandId ? user.restaurandId : user.clientId,
-          userType: user.restaurandId ? 'restaurante' : 'cliente'
+          userType: user.restaurandId ? 'restaurant' : 'client'
         },
         process.env.SECRET,
         { expiresIn: 60*60 }
       )
 
-      const userKind = user.restaurandId ? 'restaurante' : 'cliente'
+      const userKind = user.restaurandId ? 'restaurant' : 'client'
       res.status(201).json({token, userKind})
     } catch(error){
       res.status(401).json({message: error.message})
