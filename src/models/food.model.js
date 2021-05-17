@@ -1,30 +1,35 @@
 const { model, Schema } = require('mongoose')
 
-const drinkSchema = new Schema({
+const foodSchema = new Schema({
   foodType: {
     type: String,
   },
   foodName: {
     type: String,
-    require: true,
   },
   restaurantId: [{
     type: Schema.Types.ObjectId,
     ref: 'Restaurant'
     },
   ],
+  foodCut: [{
+    type: String,
+  }],
+  foodPreparation: [{
+    type: String,
+  }],
   foodQuantity: [{
     type: String,
-    enum: ['1', '2', '3'],
-    maxLength: 3,
+    enum: ['100gr', '200gr', '300gr'],
   }],
   foodPrice: [{
     type: String,
   }],
+
 }, {
   timestamps: true,
 })
 
-const Drink = model('Drink', drinkSchema)
+const Food = model('Food', foodSchema)
 
-module.exports = Drink
+module.exports = Food

@@ -7,14 +7,14 @@ const Restaurant = require('../models/restaurant.model')
 module.exports = {
   async signup(req, res){
     try {
-      const { email, password, name, userType } = req.body
+      const { email, password, name, userType, direction, phone } = req.body
       const user = await User.create({email, password})
       if ( userType === 'restaurant' ){
-        const restaurant = await Restaurant.create({ name, user: user._id })
+        const restaurant = await Restaurant.create({ name, direction, phone, user: user._id })
         user.restaurandId = restaurant._id
         await user.save({ validateBeforeSave: false })
       } else if ( userType === 'client'){
-        const client = await Client.create({ name, user: user._id})
+        const client = await Client.create({ name, direction, phone, user: user._id})
         user.clientId = client._id
         await user.save({ validateBeforeSave: false })
       } else {

@@ -3,8 +3,9 @@ const Drink = require('../models/drink.model')
 module.exports = {
   async createDrink(req, res){
     try {
-      const { body } = req
-      const drink = await Drink.create(body)
+      const { foodType, foodName, foodQuantity, foodPrice } = req.body
+
+      const drink = await Drink.create({ foodType, foodName, foodQuantity, foodPrice })
 
       res.status(201).json({ drink })
     } catch(error){
