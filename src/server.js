@@ -6,7 +6,6 @@ const {connect} = require('./db')
 const userRouter = require('./routes/user')
 const clientRouter = require('./routes/client')
 const restaurantRouter = require('./routes/restaurant')
-const drinkRouter = require('./routes/drink')
 const foodRouter = require('./routes/food')
 
 const port = process.env.PORT
@@ -20,7 +19,6 @@ app.use(morgan('dev'))
 app.use('/users', userRouter)
 app.use('/clients', clientRouter)
 app.use('/restaurants', restaurantRouter)
-app.use('/drinks', drinkRouter)
 app.use('/foods', foodRouter)
 
 
