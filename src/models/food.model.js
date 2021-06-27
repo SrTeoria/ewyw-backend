@@ -1,31 +1,30 @@
 const { model, Schema } = require('mongoose')
 
-const foodSchema = new Schema({
-  foodType: {
+const typesSchema = new Schema({
+  foodLabel: {
     type: String,
   },
+  foodPrice: {
+    type: String,
+  },
+})
+
+const foodSchema = new Schema({
+
   foodName: {
     type: String,
+  },
+  foodCategory: {
+    type: String,
+  },
+  types: {
+    type: [typesSchema]
   },
   restaurantId: [{
     type: Schema.Types.ObjectId,
     ref: 'Restaurant'
     },
   ],
-  foodCut: [{
-    type: String,
-  }],
-  foodPreparation: [{
-    type: String,
-  }],
-  foodQuantity: [{
-    type: String,
-    enum: ['100gr', '200gr', '300gr'],
-  }],
-  foodPrice: [{
-    type: String,
-  }],
-
 }, {
   timestamps: true,
 })
