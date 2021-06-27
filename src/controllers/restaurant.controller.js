@@ -26,9 +26,19 @@ module.exports = {
       const { user: { userTypeId } } = req
       const restaurant = await Restaurant.findById(userTypeId)
 
-      res.status(201).json({message: 'Restaurante cargado con exito', restaurant})
+      res.status(201).json(restaurant)
     } catch(error){
       res.status(400).json({message: 'No se pudo obtener los datos del restaurante'}, error)
+    }
+  },
+  async getRestaurantPublic(req, res){
+    try {
+      const { params: { restaurantId } } = req
+      const restaurant = await Restaurant.findById(restaurantId)
+
+      res.status(201).json({message: 'Restaurante cargado con exito', restaurant})
+    } catch(error){
+      // res.status(400).json({message: 'No se pudo obtener la informacion del restaurante'}, error)
     }
   }
 
